@@ -31,7 +31,7 @@
               {% if todo.note %}
                 NOTE: <li>{{ todo.note }}</li>
               {% else %}
-                <li><input type="textbox" id="note"><a id="addnote" data-todo-id="{{ todo.id }}">+ add note</a></li>
+                <li class="note"><input type="textbox"><a data-todo-id="{{ todo.id }}">+ add note</a></li>
               {% endif %}
             {% endif %}
           {% endfor %}

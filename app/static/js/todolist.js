@@ -1,6 +1,6 @@
 $(document).ready(function() {
   $(':checkbox').on('click', changeTodoStatus);
-  $('#addnote').on('click', addNote);
+  $('.note > a').on('click', addNote);
 });
 
 function addNote() {
@@ -13,12 +13,12 @@ function addNote() {
       }
     }
   });
-  var note = $('#note').val();
+  var note = $(this).siblings("input").val();
   var todoID = $(this).data('todo-id');
   var todoURL = '/api/todo/' + todoID + '/note';
   $.ajax({
     url: todoURL,
-    type: 'POST',
+    type: 'PUT',
     contentType: 'application/json',
     data: JSON.stringify({ note }),
     success: function() {
