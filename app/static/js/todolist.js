@@ -15,18 +15,15 @@ function addNote() {
   });
   var note = $('#note').val();
   var todoID = $(this).data('todo-id');
-  var todoURL = '/api/todo/' + todoID + '/';
-  $.getJSON(todoURL, function(todo) {
-    todo.note = note
-    $.ajax({
-      url: todoURL,
-      type: 'PUT',
-      contentType: 'application/json',
-      data: JSON.stringify(todo),
-      success: function() {
-        location.reload();
-      }
-    });
+  var todoURL = '/api/todo/' + todoID + '/note';
+  $.ajax({
+    url: todoURL,
+    type: 'POST',
+    contentType: 'application/json',
+    data: JSON.stringify({ note }),
+    success: function() {
+      location.reload();
+    }
   });
 }
 
