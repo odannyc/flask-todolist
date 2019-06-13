@@ -28,6 +28,11 @@
           {% for todo in todolist.todos %}
             {% if not todo.is_finished %}
               <li><input type="checkbox" id="checkbox" data-todo-id="{{ todo.id }}"> {{ todo.description }}</li>
+              {% if todo.note %}
+                NOTE: <li>{{ todo.note }}</li>
+              {% else %}
+                <li><input type="textbox" id="note"><a id="addnote" data-todo-id="{{ todo.id }}">+ add note</a></li>
+              {% endif %}
             {% endif %}
           {% endfor %}
         </ul>

@@ -1,6 +1,34 @@
 $(document).ready(function() {
   $(':checkbox').on('click', changeTodoStatus);
+  $('#addnote').on('click', addNote);
 });
+
+function addNote() {
+  // setup ajax to csrf token
+  var csrftoken = getCookie('csrftoken');
+  $.ajaxSetup({
+    beforeSend: function(xhr, settings) {
+      if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+        xhr.setRequestHeader("X-CSRFToken", csrftoken);
+      }
+    }
+  });
+  var note = $('#note').val();
+  var todoID = $(this).data('todo-id');
+  var todoURL = '/api/todo/' + todoID + '/';
+  $.getJSON(todoURL, function(todo) {
+    todo.note = note
+    $.ajax({
+      url: todoURL,
+      type: 'PUT',
+      contentType: 'application/json',
+      data: JSON.stringify(todo),
+      success: function() {
+        location.reload();
+      }
+    });
+  });
+}
 
 function changeTodoStatus() {
   if ($(this).is(':checked')) {
