@@ -19,3 +19,5 @@ services:
     command: flask db upgrade
     depends_on:
       - todolist
+    volumes_from:
+      - todolist
