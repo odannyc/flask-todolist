@@ -27,7 +27,7 @@
         <ul>
           {% for todo in todolist.todos %}
             {% if not todo.is_finished %}
-              <li><input type="checkbox" id="checkbox" data-todo-id="{{ todo.id }}"> {{ todo.description }}</li>
+              <li><input type="checkbox" id="checkbox" data-todo-id="{{ todo.id }}"> {{ todo.description }}<a class="deletetodo" data-todo-id="{{ todo.id }}">- delete</a></li>
               {% if todo.note %}
                 NOTE: <li>{{ todo.note }}</li>
               {% else %}

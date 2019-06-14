@@ -1,7 +1,31 @@
 $(document).ready(function() {
   $(':checkbox').on('click', changeTodoStatus);
   $('.note > a').on('click', addNote);
+  $('.deletetodo').on('click', deleteTodo);
 });
+
+function deleteTodo() {
+  // setup ajax to csrf token
+  var csrftoken = getCookie('csrftoken');
+  $.ajaxSetup({
+    beforeSend: function(xhr, settings) {
+      if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+        xhr.setRequestHeader("X-CSRFToken", csrftoken);
+      }
+    }
+  });
+  var todoID = $(this).data('todo-id');
+  var todoURL = '/api/todo/' + todoID +'/';
+  $.ajax({
+    url: todoURL,
+    type: 'DELETE',
+    contentType: 'application/json',
+    data: JSON.stringify({ todo_id: todoID }),
+    success: function() {
+      location.reload();
+    }
+  });
+}
 
 function addNote() {
   // setup ajax to csrf token
